@@ -18,6 +18,7 @@ import com.bindglam.utility.utils.MinecraftVersion
 import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPIBukkitConfig
 import dev.jorel.commandapi.CommandAPICommand
+import dev.jorel.commandapi.CommandAPIPaperConfig
 import dev.jorel.commandapi.CommandPermission
 import dev.jorel.commandapi.executors.CommandExecutor
 import net.kyori.adventure.text.Component
@@ -35,7 +36,7 @@ class BindglamUtilityImpl : JavaPlugin(), BindglamUtilityPlugin {
     private lateinit var guiRendererManager: GuiRendererManager
 
     override fun onLoad() {
-        CommandAPI.onLoad(CommandAPIBukkitConfig(this))
+        CommandAPI.onLoad(CommandAPIPaperConfig(this))
 
         registerCommands()
     }
@@ -62,6 +63,8 @@ class BindglamUtilityImpl : JavaPlugin(), BindglamUtilityPlugin {
         packetDispatcher = when(MinecraftVersion.CURRENT) {
             MinecraftVersion.V1_21_4 -> com.bindglam.utility.nms.v1_21_R3.PacketDispatcherImpl()
             MinecraftVersion.V1_21_8 -> com.bindglam.utility.nms.v1_21_R5.PacketDispatcherImpl()
+            MinecraftVersion.V1_21_10 -> com.bindglam.utility.nms.v1_21_R6.PacketDispatcherImpl()
+            MinecraftVersion.V1_21_11 -> com.bindglam.utility.nms.v1_21_R7.PacketDispatcherImpl()
             else -> throw IllegalStateException("Unexpected version: ${MinecraftVersion.CURRENT}")
         }
         sqlDatabase = when (Objects.requireNonNull(config.getString("database.type"))) {

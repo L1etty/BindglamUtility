@@ -17,7 +17,7 @@ dependencies {
 
 tasks {
     runServer {
-        minecraftVersion("1.21.4")
+        minecraftVersion("1.21.11")
     }
 
     jar {
@@ -26,6 +26,9 @@ tasks {
 
     shadowJar {
         archiveClassifier = ""
+        manifest {
+            attributes["paperweight-mappings-namespace"] = "mojang"
+        }
         dependencies {
             exclude(dependency("org.jetbrains:annotations:26.0.2"))
             exclude(dependency("org.jetbrains:annotations:24.1.0"))

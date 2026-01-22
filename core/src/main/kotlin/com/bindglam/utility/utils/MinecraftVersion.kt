@@ -8,6 +8,8 @@ data class MinecraftVersion(val first: Int, val second: Int, val third: Int): Co
 
         val V1_21_4 = MinecraftVersion(1, 21, 4)
         val V1_21_8 = MinecraftVersion(1, 21, 8)
+        val V1_21_10 = MinecraftVersion(1, 21, 10)
+        val V1_21_11 = MinecraftVersion(1, 21, 11)
 
         private val COMPARATOR = Comparator.comparing { v: MinecraftVersion -> v.first }
             .thenComparing { v: MinecraftVersion -> v.second }
