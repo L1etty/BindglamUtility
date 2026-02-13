@@ -99,7 +99,7 @@ public abstract class GuiBase implements InventoryHolder {
     }
 
     public @Unmodifiable Map<String, UIComponent> getUIComponents() {
-        return Map.copyOf(uiComponents);
+        return Collections.unmodifiableMap(new LinkedHashMap<>(uiComponents));
     }
 
     public void addUIComponent(String id, UIComponent uiComponent){

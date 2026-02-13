@@ -34,9 +34,9 @@ class GuiRendererImpl(private val plugin: Plugin, private val gui: GuiBase) : Gu
         uiUpdateTask = Bukkit.getAsyncScheduler().runAtFixedRate(plugin, { task ->
             var shouldUpdateUI = gui.isChanged
 
-            val list = gui.uiComponents.values.stream().toList()
-            for (i in gui.uiComponents.size - 1 downTo 0) {
-                val component = list[i]
+            val components = gui.uiComponents.values.toList()
+            for (i in components.size - 1 downTo 0) {
+                val component = components[i]
 
                 if (component.animator.animation != null) {
                     shouldUpdateUI = true
@@ -55,7 +55,8 @@ class GuiRendererImpl(private val plugin: Plugin, private val gui: GuiBase) : Gu
 
     private fun updateUIComponent() {
         var title = gui.title
-        gui.uiComponents.values.forEach { component -> title = title.append(component.build()) }
+        val components = gui.uiComponents.values.toList()
+        components.forEach { component -> title = title.append(component.build()) }
 
         for (player in getViewers()) {
             if (player == null) continue
