@@ -2,6 +2,7 @@ package com.bindglam.utility.gui
 
 import com.bindglam.utility.BindglamUtility
 import com.bindglam.utility.events.BindglamInventoryCloseEvent
+import com.bindglam.utility.utils.InteractionGuard
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -80,6 +81,11 @@ class GuiRendererImpl(private val plugin: Plugin, private val gui: GuiBase) : Gu
         val player = event.whoClicked as Player
         val inventory = event.view.topInventory
         if (inventory.getHolder(false) != gui) return
+
+        if (InteractionGuard.isGuiClickOnCooldown(player.uniqueId)) {
+            event.isCancelled = true
+            return
+        }
 
         gui.onClick(event)
     }
