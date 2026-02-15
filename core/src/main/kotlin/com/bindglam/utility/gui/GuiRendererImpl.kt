@@ -4,6 +4,7 @@ import com.bindglam.utility.BindglamUtility
 import com.bindglam.utility.events.BindglamInventoryCloseEvent
 import com.bindglam.utility.utils.InteractionGuard
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
+import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -58,6 +59,9 @@ class GuiRendererImpl(private val plugin: Plugin, private val gui: GuiBase) : Gu
         var title = gui.title
         val components = gui.uiComponents.values.toList()
         components.forEach { component -> title = title.append(component.build()) }
+        gui.tailStrings.values.forEach { tailString ->
+            title = title.append(Component.text(tailString))
+        }
 
         for (player in getViewers()) {
             if (player == null) continue
